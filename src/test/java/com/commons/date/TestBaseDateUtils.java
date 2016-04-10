@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 /**
@@ -32,7 +33,8 @@ public class TestBaseDateUtils {
 
     @Test
     public void yesterdayFormat() {
-        String yesterday = "2016-04-08 22";
+        Instant instant = Instant.now().minus(1, ChronoUnit.DAYS);
+        String yesterday = instant.atZone(ZoneId.systemDefault()).format(DateTimeFormatter.ofPattern(BaseDateUtils.DATE_FORMAT_yyyy_MM_dd_HH));
         Assert.assertEquals(yesterday, BaseDateUtils.yesterdayFormat(new Date(), BaseDateUtils.DATE_FORMAT_yyyy_MM_dd_HH));
     }
 
